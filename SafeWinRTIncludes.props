@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UseWindowsSDKIncludePath>false</UseWindowsSDKIncludePath>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>
+        $(PkgMicrosoft_Windows_CppWinRT_IncludePath);
+        $(WindowsSdkDir)Include\$(WindowsTargetPlatformVersion)\ucrt;
+        $(WindowsSdkDir)Include\$(WindowsTargetPlatformVersion)\shared;
+        $(WindowsSdkDir)Include\$(WindowsTargetPlatformVersion)\winrt;
+        %(AdditionalIncludeDirectories)
+      </AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>
+        __cplusplus_winrt;
+        %(PreprocessorDefinitions)
+      </PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

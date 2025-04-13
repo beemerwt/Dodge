@@ -1,0 +1,3 @@
+Windows.Graphics.Capture
+Windows.Graphics.DirectX
+Windows.Graphics.DirectX.Direct3D11
