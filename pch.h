@@ -37,7 +37,9 @@
 #include <unordered_set>
 #include <vector>
 #include <optional>
+#include <functional>
 #include <future>
+#include <deque>
 #include <mutex>
 #include <thread>
 
@@ -54,3 +56,12 @@
 #include <wil/resource.h>
 #include <wil/cppwinrt_helpers.h>
 #include <wil/coroutine.h>
+
+// CUDA
+#include <cuda_runtime.h>
+#include <cuda_d3d11_interop.h>
+
+// CV
+#include <opencv2/core/cuda.hpp>
+#include <opencv2/cudaimgproc.hpp>
+#include <opencv2/highgui.hpp>

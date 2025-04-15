@@ -54,7 +54,8 @@ LRESULT TrayWindow::MessageHandler(UINT const uMsg, WPARAM const wParam, LPARAM 
             PostQuitMessage(0);
             break;
         case ID_TRAY_KEYBIND:
-            m_app->keybind = KeybindDialog::Create(m_app->keybind);
+            int keybind = KeybindDialog::Create(m_app->GetKeybind());
+            m_app->SetKeybind(keybind);
             OutputDebugString(L"Keybind changed\n");
             break;
         }

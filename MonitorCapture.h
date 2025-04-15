@@ -1,4 +1,5 @@
 #pragma once
+#include <opencv2/core.hpp>
 
 class MonitorCapture {
 public:
@@ -8,6 +9,11 @@ public:
     ~MonitorCapture() { Close(); }
 
     void StartCapture();
+
+    inline void SetFrameHandler(std::function<void(const cv::cuda::GpuMat&)> handler) {
+        m_frameHandler = handler;
+    }
+
     winrt::Windows::UI::Composition::ICompositionSurface CreateSurface(winrt::Windows::UI::Composition::Compositor const& compositor);
 
     void Close();
@@ -24,6 +30,12 @@ private:
     }
 
 private:
+    D3D11_BOX cropRegion = {};
+    Microsoft::WRL::ComPtr<ID3D11Texture2D> croppedTexture;
+    std::function<void(const cv::cuda::GpuMat&)> m_frameHandler;
+
+    cv::cuda::GpuMat m_frame;
+
     winrt::Windows::Graphics::Capture::GraphicsCaptureItem m_item{ nullptr };
     winrt::Windows::Graphics::Capture::Direct3D11CaptureFramePool m_framePool{ nullptr };
     winrt::Windows::Graphics::Capture::GraphicsCaptureSession m_session{ nullptr };
@@ -32,6 +44,8 @@ private:
     winrt::com_ptr<IDXGISwapChain1> m_swapChain{ nullptr };
     winrt::com_ptr<ID3D11Device> m_d3dDevice{ nullptr };
     winrt::com_ptr<ID3D11DeviceContext> m_d3dContext{ nullptr };
+
+    cudaGraphicsResource* m_cudaResource = nullptr;
 
     std::atomic<bool> m_closed{ false };
 };

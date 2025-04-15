@@ -11,6 +11,14 @@ LRESULT CALLBACK HookCallback(int nCode, WPARAM wParam, LPARAM lParam) {
     return g_currentHookDialog->KeyHook(nCode, wParam, lParam);
 }
 
+KeybindDialog::~KeybindDialog() {
+    if (m_hook) {
+        UnhookWindowsHookEx(m_hook);
+        m_hook = nullptr;
+        g_currentHookDialog = nullptr;
+    }
+}
+
 LRESULT KeybindDialog::KeyHook(int nCode, WPARAM wParam, LPARAM lParam) {
     if (nCode == HC_ACTION && wParam == WM_KEYDOWN) {
         OutputDebugString(L"Received Keypress KeybindDialog\n");
